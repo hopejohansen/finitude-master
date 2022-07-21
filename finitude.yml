@@ -1,0 +1,10 @@
+port: 8000
+#   set SNIFFSERVER_PORT if you want it to collect unknown frames for analysis.
+sniffserver_port: 8001
+
+listeners:
+#   upperlevel: 'telnet://localhost:23'
+   lowerlevel: /dev/ttyUSB0
+
+
+

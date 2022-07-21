@@ -1,0 +1,37 @@
+# docker-compose.yml for finitude
+#
+# Cookbook:
+#   1. create a directory dedicated to this stack (e.g. ~/finitude)
+#   2. copy this file to ~/finitude/docker-compose.yml
+#   3. create ~/finitude/finitude.yml
+#   4. edit ~/finitude/docker-compose.yml to uncomment
+#      the devices: line and one or both of the /dev/ttyUSB lines
+#      if you will be connecting to RS-485 using a USB serial adapter.
+
+# To restart finitude with a new built image from the github repository:
+#
+#    docker-compose up --build -d
+#
+# (-d causes docker-compose to detach)
+#
+# When in ~/finitude, check status with docker-compose ps
+# When in ~/finitude, tail logs with docker logs `docker-compose ps -q` --tail=50
+
+version: '3'
+services:
+
+  finitude:
+    container_name: finitude
+    image: finitude:latest
+    ports:
+      - "8000:8000"
+    restart: always
+    hostname: finitude
+    volumes:
+      - ./finitude.yml:/var/lib/finitude/finitude.yml:ro
+#    devices:
+#      - /dev/ttyUSB0:/dev/ttyUSB0
+#      - /dev/ttyUSB1:/dev/ttyUSB1
+    build:
+      context: .
+      dockerfile: Dockerfile
